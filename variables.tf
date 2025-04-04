@@ -1,63 +1,210 @@
 variable "region" {
-  
+  type        = string
+  description = "AWS region"
 }
 
 variable "service_name" {
 
+  type        = string
+  description = "Name of the ECS service"
 }
 
 variable "cluster_name" {
 
+  type        = string
+  description = "Name of the ECS cluster"
 }
 
 variable "vpc_id" {
 
+  type        = string
+  description = "VPC ID where the service will be deployed"
 }
 
 variable "private_subnets" {
 
+  type        = list(string)
+  description = "List of private subnet IDs"
 }
 
 variable "service_port" {
 
+  type        = number
+  description = "Port number for the service"
 }
 
 variable "service_cpu" {
 
+  type        = number
+  description = "CPU units for the service"
 }
 
 variable "service_memory" {
 
+  type        = number
+  description = "Memory allocation for the service in MiB"
 }
 
 variable "service_listener" {
 
+  type        = string
+  description = "ARN of the ALB listener"
 }
 
 variable "service_task_execution_role" {
 
+  type        = string
+  description = "ARN of the task execution role"
 }
 
 variable "environment_variables" {
-  type = list(any)
+  type        = list(any)
+  description = "List of environment variables for the container"
 }
 
 variable "capabilities" {
-  type = list(any)
+  type        = list(any)
+  description = "List of IAM capabilities required"
 }
 
 variable "service_healthcheck" {
-  type = map()
+  type        = map(any)
+  description = "Health check configuration for the service"
 }
 
 variable "service_launch_type" {
-  
+  type        = string
+  description = "Launch type for the ECS service (FARGATE or EC2)"
+  default     = "FARGATE"
 }
 
 variable "service_task_count" {
-  
+  type        = number
+  description = "Number of tasks to run"
+  default     = 1
 }
 
 variable "service_hosts" {
+  type        = list(string)
+  description = "List of host names for the service"
+  default     = []
+}
+
+variable "scale_type" {
+  type        = string
+  description = "Type of scaling (cpu or memory)"
+  default     = "cpu"
+}
+
+variable "task_minimum" {
+  type        = number
+  description = "Minimum number of tasks"
+  default     = 1
+}
+
+variable "task_maximum" {
+  type        = number
+  description = "Maximum number of tasks"
+  default     = 5
+}
+
+### Auto scaling de CPU
+
+variable "scalin_out_threshold" {
+  type        = number
+  description = "CPU threshold percentage for scaling out"
+  default     = 80
+}
+
+variable "scalin_out_adjustment" {
+  type        = number
+  description = "Number of tasks to add when scaling out"
+  default     = 1
+}
+
+variable "scalin_out_comparison_operator" {
+  type        = string
+  description = "Comparison operator for scaling out"
+  default     = "GreaterThanOrEqualToThreshold"
+}
+
+variable "scalin_out_statistic" {
+  type        = string
+  description = "Statistic to use for scaling (Average, Maximum, etc)"
+  default     = "Average"
+}
+
+variable "scalin_out_period" {
+  type        = number
+  description = "Period in seconds over which to evaluate the alarm"
+  default     = 60
+}
+
+variable "scalin_out_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate the alarm"
+  default     = 3
+}
+ 
+ variable "scalin_out_cooldown" {
+  type        = number
+  description = "Cooldown period in seconds"
+  default     = 60
+}
+
+variable "scalin_in_threshold" {
+  type        = number
+  description = "CPU threshold percentage for scaling out"
+  default     = 80
+}
+
+variable "scalin_in_adjustment" {
+  type        = number
+  description = "Number of tasks to add when scaling out"
+  default     = 1
+}
+
+variable "scalin_in_comparison_operator" {
+  type        = string
+  description = "Comparison operator for scaling out"
+  default     = "GreaterThanOrEqualToThreshold"
+}
+
+variable "scalin_in_statistic" {
+  type        = string
+  description = "Statistic to use for scaling (Average, Maximum, etc)"
+  default     = "Average"
+}
+
+variable "scalin_in_period" {
+  type        = number
+  description = "Period in seconds over which to evaluate the alarm"
+  default     = 60
+}
+
+variable "scalin_in_evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate the alarm"
+  default     = 3
+}
+
+variable "scalin_in_cooldown" {
+  type        = number
+  description = "Cooldown period in seconds"
+  default     = 60
+}
+
+### Tracking CPU
+variable "scaling_tracking_cpu" {
+  
+}
+
+### Tracking requests
+
+variable "alb_arn" {
+  
+}
+
+variable "scalin_tracking_requests" {
   
 }
