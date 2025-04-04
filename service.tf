@@ -14,6 +14,18 @@ resource "aws_ecs_service" "main" {
     rollback = true
   }
 
+ ### Estrategia de distribuição das tasks nos hosts, só utiliza quando
+ ### o launch_type for EC2
+
+  dynamic "ordered_placement_strategy" {
+    for_each = var.service_launch_type == "EC2" ? [1] : []
+    content {
+      type = "spread"
+      field = "attribute:ecs.availability-zone"
+    }
+    
+  }  
+
   network_configuration {
     security_groups = [aws_security_group.main.id]
 
