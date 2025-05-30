@@ -9,6 +9,11 @@ variable "service_name" {
   description = "Name of the ECS service"
 }
 
+variable "container_image" {
+  type        = string
+  description = "Imagem com tag para deploy da aplicação"
+}
+
 variable "cluster_name" {
 
   type        = string
@@ -49,6 +54,16 @@ variable "service_listener" {
 
   type        = string
   description = "ARN of the ALB listener"
+}
+
+variable "alb_arn" {
+  type        = string
+  description = "ARN do Application Load Balancer"
+}
+
+variable "listener_arn" {
+  type        = string
+  description = "ARN do Listener do ALB"
 }
 
 variable "service_task_execution_role" {
@@ -143,10 +158,10 @@ variable "scalin_out_period" {
 variable "scalin_out_evaluation_periods" {
   type        = number
   description = "Number of periods to evaluate the alarm"
-  default     = 3
+  default     = 2
 }
- 
- variable "scalin_out_cooldown" {
+
+variable "scalin_out_cooldown" {
   type        = number
   description = "Cooldown period in seconds"
   default     = 60
@@ -167,7 +182,7 @@ variable "scalin_in_adjustment" {
 variable "scalin_in_comparison_operator" {
   type        = string
   description = "Comparison operator for scaling out"
-  default     = "GreaterThanOrEqualToThreshold"
+  default     = "LessThanOrEqualToThreshold"
 }
 
 variable "scalin_in_statistic" {
@@ -179,7 +194,7 @@ variable "scalin_in_statistic" {
 variable "scalin_in_period" {
   type        = number
   description = "Period in seconds over which to evaluate the alarm"
-  default     = 60
+  default     = 120
 }
 
 variable "scalin_in_evaluation_periods" {
@@ -191,20 +206,16 @@ variable "scalin_in_evaluation_periods" {
 variable "scalin_in_cooldown" {
   type        = number
   description = "Cooldown period in seconds"
-  default     = 60
+  default     = 120
 }
 
 ### Tracking CPU
 variable "scaling_tracking_cpu" {
-  
+  default = 80
 }
 
 ### Tracking requests
 
-variable "alb_arn" {
-  
-}
-
 variable "scalin_tracking_requests" {
-  
+  default = 0
 }
