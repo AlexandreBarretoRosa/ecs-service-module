@@ -219,3 +219,15 @@ variable "scaling_tracking_cpu" {
 variable "scalin_tracking_requests" {
   default = 0
 }
+
+### EFS
+variable "efs_volumes" {
+  type = list(object({
+    volume_name : string
+    file_system_id : string
+    file_system_root : string
+    mount_point : string
+    read_inly : bool
+  }))
+
+}
