@@ -64,6 +64,8 @@ resource "aws_ecs_task_definition" "main" {
 
       # Fix: environment instead of environmemt
       environment = var.environment_variables
+
+      secrets = var.secrets
     }
   ])
 
