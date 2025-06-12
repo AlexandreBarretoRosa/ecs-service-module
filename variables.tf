@@ -73,8 +73,18 @@ variable "service_task_execution_role" {
 }
 
 variable "environment_variables" {
-  type        = list(any)
+  type        = list(map(string))
   description = "List of environment variables for the container"
+  default     = []
+}
+
+variable "secrets" {
+  type = list(object({
+    name : string
+    value : string
+  }))
+  description = "lista de secrets do parametr stor ou secrets manager"
+  default     = []
 }
 
 variable "capabilities" {
