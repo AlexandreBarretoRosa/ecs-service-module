@@ -17,9 +17,9 @@ resource "aws_appautoscaling_policy" "target_tracking_reqiests" {
 
     predefined_metric_specification {
       predefined_metric_type = "ALBRequestPerTarget"
-      resource_label = "${data.aws_alb.main.arn_suffix}/${aws_alb_target_group.main.arn_suffix}"
+      resource_label         = "${data.aws_alb.main.arn_suffix}/${aws_alb_target_group.main.arn_suffix}"
 
 
     }
   }
-}    
+}
